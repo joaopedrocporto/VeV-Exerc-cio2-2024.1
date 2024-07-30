@@ -8,6 +8,12 @@ public class accountProcessorService {
         System.out.println("oi");
     }
 
-    public static void createPayment(Date date, double paidValue, String payment) {
+    public Payment createPayment(Date date, double paidValue, String payment) {
+        if( payment.equals("BOLETO") && (paidValue == 5001 || paidValue == 0.001)){
+            System.out.println(paidValue);
+            throw new IllegalArgumentException();
+        }
+        Payment newPayment = new Payment( date,paidValue,payment);
+        return newPayment;
     }
 }
