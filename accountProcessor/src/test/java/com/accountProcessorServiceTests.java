@@ -44,6 +44,7 @@ public class accountProcessorServiceTests {
     public void testInvoiceCreation(){
         String dateString = "2022-11-23";
         try{
+
             String clientName = "Valber Azevedo";
             double totalValue = 234.87;
             Date date = dateFormatedDate.parse(dateString);
@@ -73,28 +74,104 @@ public class accountProcessorServiceTests {
 
     @Test
     public void testPaymentCreation(){
-        String dateString = "2023-12-12";
+
         try {
-            Date date = dateFormatedDate.parse(dateString);
-            double paidValue = 123.12;
+
+            Date dateInvoice = dateFormatedDate.parse("2023-12-13");
+            Invoice newInvoice = new Invoice(234.87, dateInvoice,"Valber Azevedo");
+            Date accountDate = dateFormatedDate.parse("2023-12-11");
+            Account account = new Account(12.32, 12, accountDate);
+            Date paymentDate = dateFormatedDate.parse("2023-12-12");
             String payment = "BOLETO";
-            Payment newPayment = new Payment(date,paidValue,payment);
-            assertEquals(newPayment.value,paidValue);
+            Payment newPayment = this.accountProcessor.payBill(newInvoice,account, paymentDate,account.value,payment);
         }catch (ParseException e){
-        e.printStackTrace();
+            e.printStackTrace();
         }
     }
 
+
+    @Test
+    public void testPaymentCreationTicket(){
+
+        try {
+
+            Date dateInvoice = dateFormatedDate.parse("2023-12-13");
+            Invoice newInvoice = new Invoice(234.87, dateInvoice,"Valber Azevedo");
+            Date accountDate = dateFormatedDate.parse("2023-12-11");
+            Account account = new Account(12.32, 12, accountDate);
+            Date paymentDate = dateFormatedDate.parse("2023-12-12");
+            String payment = "BOLETO";
+            Payment newPayment = this.accountProcessor.payBill(newInvoice,account, paymentDate,account.value,payment);
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
+    }
+    @Test
+    public void testPaymentCreationTransaction(){
+
+        try {
+
+            Date dateInvoice = dateFormatedDate.parse("2023-12-13");
+            Invoice newInvoice = new Invoice(234.87, dateInvoice,"Valber Azevedo");
+            Date accountDate = dateFormatedDate.parse("2023-12-11");
+            Account account = new Account(12.32, 12, accountDate);
+            Date paymentDate = dateFormatedDate.parse("2023-12-12");
+            String payment = "TRANSFERENCIA_BANCARIA";
+            Payment newPayment = this.accountProcessor.payBill(newInvoice,account, paymentDate,account.value,payment);
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
+    }
+    @Test
+    public void testPaymentCreationCCreditCard(){
+
+        try {
+
+            Date dateInvoice = dateFormatedDate.parse("2023-12-13");
+            Invoice newInvoice = new Invoice(234.87, dateInvoice,"Valber Azevedo");
+            Date accountDate = dateFormatedDate.parse("2023-11-10");
+            Account account = new Account(12.32, 12, accountDate);
+            Date paymentDate = dateFormatedDate.parse("2023-12-12");
+            String payment = "CARTAO_CREDITO";
+            Payment newPayment = this.accountProcessor.payBill(newInvoice,account, paymentDate,account.value,payment);
+            assertEquals(newPayment.invoice, newInvoice);
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
+    }
     @Test
     public void testPaymentWrongticketCreation(){
-        String dateString = "2023-12-12";
+
         try {
-            Date date = dateFormatedDate.parse(dateString);
-            double paidValue = 5001;
+
+            Date dateInvoice = dateFormatedDate.parse("2023-12-13");
+            Invoice newInvoice = new Invoice(234.87, dateInvoice,"Valber Azevedo");
+            Date accountDate = dateFormatedDate.parse("2023-12-11");
+            Account account = new Account(5012.32, 11, accountDate);
+            Date paymentDate = dateFormatedDate.parse("2023-12-12");
             String payment = "BOLETO";
             assertThrows(IllegalArgumentException.class, () -> {
-                accountProcessor.createPayment(date,paidValue,payment);
+                accountProcessor.payBill(newInvoice,account, paymentDate,account.value,payment);
             });
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testPaymenTicketAfterDateCreation(){
+
+        try {
+
+            Date dateInvoice = dateFormatedDate.parse("2023-12-13");
+            Invoice newInvoice = new Invoice(234.87, dateInvoice,"Valber Azevedo");
+            Date accountDate = dateFormatedDate.parse("2023-12-12");
+            Account account = new Account(0.001, 10, accountDate);
+            Date paymentDate = dateFormatedDate.parse("2023-12-12");
+            String paymentMethod = "BOLETO";
+            Payment payment = accountProcessor.payBill(newInvoice,account, paymentDate,account.value,paymentMethod);
+            double afterTimeValue = account.value *1.1;
+            assertEquals(payment.value,afterTimeValue);
 
         }catch (ParseException e){
             e.printStackTrace();
@@ -102,18 +179,79 @@ public class accountProcessorServiceTests {
     }
 
     @Test
-    public void testPaymentWrongticketCreation2(){
-        String dateString = "2023-12-12";
+    public void testPaymentWrongDateCreation(){
+
         try {
-            Date date = dateFormatedDate.parse(dateString);
-            double paidValue = 0.001;
+
+            Date dateInvoice = dateFormatedDate.parse("2023-12-12");
+            Invoice newInvoice = new Invoice(234.87, dateInvoice,"Valber Azevedo");
+            Date accountDate = dateFormatedDate.parse("2023-12-12");
+            Account account = new Account(0.001, 10, accountDate);
+            Date paymentDate = dateFormatedDate.parse("2023-12-12");
             String payment = "BOLETO";
             assertThrows(IllegalArgumentException.class, () -> {
-                accountProcessor.createPayment(date,paidValue,payment);
+                accountProcessor.payBill(newInvoice,account, paymentDate,account.value,payment);
             });
-
         }catch (ParseException e){
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void testPaymentWrongDateCreation(){
+
+        try {
+
+            Date dateInvoice = dateFormatedDate.parse("2023-12-12");
+            Invoice newInvoice = new Invoice(234.87, dateInvoice,"Valber Azevedo");
+            Date accountDate = dateFormatedDate.parse("2023-12-13");
+            Account account = new Account(10, 10, accountDate);
+            Date paymentDate = dateFormatedDate.parse("2023-12-13");
+            String payment = "BOLETO";
+            assertThrows(IllegalArgumentException.class, () -> {
+                accountProcessor.payBill(newInvoice,account, paymentDate,account.value,payment);
+            });
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testPaymentWrongDateCreation(){
+
+        try {
+
+            Date dateInvoice = dateFormatedDate.parse("2023-12-12");
+            Invoice newInvoice = new Invoice(234.87, dateInvoice,"Valber Azevedo");
+            Date accountDate = dateFormatedDate.parse("2023-12-13");
+            Account account = new Account(10, 10, accountDate);
+            Date paymentDate = dateFormatedDate.parse("2023-12-13");
+            String payment = "TRANSFERENCIA_BANCARIA";
+            assertThrows(IllegalArgumentException.class, () -> {
+                accountProcessor.payBill(newInvoice,account, paymentDate,account.value,payment);
+            });
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
+    }
+    @Test
+    public void testPaymentWrongDateCreation(){
+
+        try {
+
+            Date dateInvoice = dateFormatedDate.parse("2023-12-13");
+            Invoice newInvoice = new Invoice(234.87, dateInvoice,"Valber Azevedo");
+            Date accountDate = dateFormatedDate.parse("2023-12-10");
+            Account account = new Account(10, 10, accountDate);
+            Date paymentDate = dateFormatedDate.parse("2023-12-12");
+            String payment = "CARTAO_CREDITO";
+            assertThrows(IllegalArgumentException.class, () -> {
+                accountProcessor.payBill(newInvoice,account, paymentDate,account.value,payment);
+            });
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
+    }
+
+
 }
