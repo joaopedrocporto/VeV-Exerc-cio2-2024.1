@@ -1,5 +1,6 @@
 package accountProcessor.src.test.java.com;
 
+import accountProcessor.src.main.java.com.Account;
 import accountProcessor.src.main.java.com.Payment;
 import accountProcessor.src.main.java.com.accountProcessorService;
 import org.junit.Test;
@@ -32,23 +33,14 @@ public class accountProcessorServiceTests {
             int accountCode = 12;
             Account newAccount = new Account(accountValue, accountCode, date);
             assertEquals(newAccount.accountCode, accountCode);
-        }catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
-    ublic void testAccountCreation2(){
-        String dateString = "2023-12-12";
-        try {
-            Date date = dateFormatedDate.parse(dateString);
-            double accountValue = 12.32;
-            int accountCode = 12;
-            Account newAccount = new Account(accountValue, accountCode, date);
-            assertEquals(newAccount.status, "Pendente");
-        }catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
+            assertEquals(newAccount.value, accountValue);
+            assertEquals(newAccount.date, date);
 
+
+        }catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
     @Test
     public void testInvoiceCreation(){
         String dateString = "2022-11-23";
@@ -58,6 +50,20 @@ public class accountProcessorServiceTests {
             Date date = dateFormatedDate.parse(dateString);
             Invoice newInvoice = new Invoice(totalValue, date,clientName);
             assertEquals(totalValue,newInvoice.value);
+        }catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testInvoiceCreation2(){
+        String dateString = "2022-11-23";
+        try{
+            String clientName = "Valber Azevedo";
+            double totalValue = 234.87;
+            Date date = dateFormatedDate.parse(dateString);
+            Invoice newInvoice = new Invoice(totalValue, date,clientName);
+            assertEquals("Pendente",newInvoice.status);
         }catch (ParseException e) {
             e.printStackTrace();
         }
