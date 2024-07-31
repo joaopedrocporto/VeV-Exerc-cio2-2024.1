@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 public class billProcessorService {
 
     Map<Integer, Bill> bills;
-    Map<String, Invoice> invoices;
+        Map<Integer, Invoice> invoices;
     private SimpleDateFormat dateFormatedDate;
 
     public billProcessorService(){
@@ -17,21 +17,24 @@ public class billProcessorService {
         this.dateFormatedDate  = new SimpleDateFormat("yyyy-MM-dd");
     }
 
-    public void addInvoices(Double value, String InvoiceDate, String clientName) throws ParseException {
+    public Invoice addInvoices(Double value, String InvoiceDate, String clientName) throws ParseException {
         Date dateInvoice = dateFormatedDate.parse(InvoiceDate);
-        Invoice newInvoice = new Invoice(value, dateInvoice, clientName);
-        invoices.put(clientName, newInvoice);
+        Integer newCode = this.invoices.size() + 1;
+        Invoice newInvoice = new Invoice(newCode,value, dateInvoice, clientName);
+        invoices.put(newCode, newInvoice);
+        return newInvoice;
     }
 
-    public void addBills(Double value, String billDate, Integer code) throws ParseException {
+    public Bill addBills(double value, String billDate, Integer code) throws ParseException {
         Date dateBill = dateFormatedDate.parse(billDate);
         Bill newBill = new Bill(value, code, dateBill);
         bills.put(newBill.getId(), newBill);
+        return newBill;
     }
 
-    public Payment payBill(Invoice invoice, Bill bill, Date paymentDate, String payment) {
-        if (!bill.date.before(invoice.date)) {
-            throw new IllegalArgumentException("The date of the Invoice should be after the bill date");
+    public double payBill(Invoice invoice, Bill bill, Date paymentDate, String payment) {
+        if (bill.date.after(invoice.date)) {
+            return 0;
         }
         Payment billPayment;
         if (payment.equals("BOLETO")) {
@@ -43,7 +46,7 @@ public class billProcessorService {
                 billPayment = payTransaction(invoice, bill, paymentDate, bill.value);
             }
         }
-        return billPayment;
+        return billPayment.value;
     }
 
     private Payment payTransaction(Invoice invoice, Bill bill, Date paymentDate, double value) {
@@ -53,35 +56,34 @@ public class billProcessorService {
     private Payment payCard(Invoice invoice, Bill bill, Date paymentDate, double value) {
         long diffInMillies = Math.abs(bill.date.getTime() - invoice.date.getTime());
         long diffInDays = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-
+        Payment newPayment;
         if (diffInDays < 15) {
-            throw new IllegalArgumentException("The date of the Invoice should be at least 15 days before the bill date");
+            newPayment =new Payment(paymentDate, 0, "CARTAO_CREDITO", bill, invoice);
+        }else {
+            newPayment = new Payment(paymentDate, value, "CARTAO_CREDITO", bill, invoice);
         }
-        Payment payment = new Payment(paymentDate, value, "CARTAO_CREDITO", bill, invoice);
-        return payment;
+        return newPayment;
+
     }
 
     private Payment payBoleto(Invoice invoice, Bill bill, Date paymentDate, double value) {
         double newValue = value;
         if (value > 5000 || value < 0.01) {
             throw new IllegalArgumentException();
+        }else {
+            if (paymentDate.after(bill.date)) {
+                newValue = 1.1 * value;
+            }
         }
-        if (paymentDate.after(bill.date)) {
-            newValue = 1.1 * value;
-        }
-        Payment payment = new Payment(paymentDate, newValue, "BOLETO", bill, invoice);
-        return payment;
+        return new Payment(paymentDate, newValue, "BOLETO", bill, invoice);
     }
 
-    public Invoice processBills(Invoice invoice, List<Bill> billList, Map<Integer, String> billsPaymentsWay) {
-        long accumulatedValue = 0;
-        Date currentDate = new Date();
-        Payment atualPayment;
-        for (int i = 0; i < billList.size(); i++) {
-            atualPayment = this.payBill(invoice, billList.get(i), currentDate, billsPaymentsWay.get(billList.get(i).getId()));
-            accumulatedValue += atualPayment.value;
+    public Invoice processBills(Invoice invoice, List<Integer> billListId, Map<Integer, String> billsPaymentsWay,Date paymentDate) {
+        double accumulatedValue = 0;
+        for (int i = 0; i < billListId.size(); i++) {
+            accumulatedValue += this.payBill(invoice, this.bills.get(billListId.get(i)), paymentDate, billsPaymentsWay.get(billListId.get(i)));
         }
-        if (invoice.value >= accumulatedValue) {
+        if (invoice.value <= accumulatedValue) {
             invoice.confirmPayment();
         }
         return invoice;

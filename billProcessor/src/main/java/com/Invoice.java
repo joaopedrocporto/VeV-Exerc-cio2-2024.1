@@ -9,7 +9,9 @@ public class Invoice {
     public String name;
     public Date date;
 
-    public Invoice(Double totalValue, Date date, String clientName) {
+
+    public Invoice(Integer code, Double totalValue, Date date, String clientName) {
+        this.idInvoice = code;
         this.date = date;
         this.name = clientName;
         this.value = totalValue;
