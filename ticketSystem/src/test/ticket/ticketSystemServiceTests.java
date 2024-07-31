@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertThrows;
@@ -121,5 +122,40 @@ public class ticketSystemServiceTests {
         assertEquals(normalPrice, normalTicket.getPrice(normalPrice), 0.01);
         assertEquals(2 * normalPrice, vipTicket.getPrice(normalPrice), 0.01);
         assertEquals(0.5 * normalPrice, meiaEntradaTicket.getPrice(normalPrice), 0.01);
+    }
+
+    @Test
+    public void testLoteCreation() {
+        Lote lote = new Lote(10.0);
+        assertNotNull(lote);
+        assertEquals(10.0, lote.getDiscount(), 0.01);
+        assertTrue(lote.getTickets().isEmpty());
+    }
+
+    @Test
+    public void testAddTicketToLote() {
+        Lote lote = new Lote(0);
+        Ticket ticket = new Ticket(TicketType.NORMAL, precoNormal);
+        lote.addTicket(ticket);
+
+        List<Ticket> tickets = lote.getTickets();
+        assertFalse(tickets.isEmpty());
+        assertEquals(1, tickets.size());
+        assertEquals(ticket, tickets.get(0));
+    }
+
+    @Test
+    public void testApplyDiscount() {
+        double precoNormal = 10.0;
+        Lote lote = new Lote(20.0);
+        Ticket vipTicket = new Ticket(TicketType.VIP, precoNormal);
+
+        double discountedPrice = lote.applyDiscount(vipTicket, vipTicket.getPrice(precoNormal));
+        assertEquals(16.0, discountedPrice, 0.01); // 20% de desconto
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testInvalidDiscount() {
+        new Lote(30.0); // Desconto acima de 25%
     }
 }

@@ -37,4 +37,7 @@ public class Lote {
         return this.tickets;
     }
 
+    public double getDiscount() {
+        return this.discount;
+    }
 }
