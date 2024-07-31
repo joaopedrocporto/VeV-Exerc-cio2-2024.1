@@ -1,7 +1,7 @@
 package ticket;
 
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.Before;
 import javax.security.auth.login.AccountException;
 import java.security.KeyStore;
 import java.text.ParseException;
@@ -24,7 +24,7 @@ public class ticketSystemServiceTests {
     private Integer lotesIngressos;
     private Boolean dataEspecial;
 
-    @BeforeEach
+    @Before
     public void setUp() {
         dateFormatedDate = new SimpleDateFormat("yyyy-MM-dd");
         String dateString = "2023-12-12";
@@ -49,5 +49,10 @@ public class ticketSystemServiceTests {
     @Test
     public void testShowCreation() {
         assertEquals(data, show.getData());
+    }
+
+    @Test
+    public void testTicketCreation(){
+        assertEquals(id, ticket.getId());
     }
 }
