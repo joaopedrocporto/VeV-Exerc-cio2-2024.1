@@ -5,11 +5,13 @@ public class Ticket {
     private Integer id;
     private TicketType tipo;
     private Boolean status;
+    private double precoNormal;
 
-    public Ticket(TicketType tipo){
+    public Ticket(TicketType tipo, double precoNormal){
         this.id = idCounter++;
         this.tipo = tipo;
         this.status = false;
+        this.precoNormal = precoNormal;
     }
 
     public double getPrice(double precoNormal){

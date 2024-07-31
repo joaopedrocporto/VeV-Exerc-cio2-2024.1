@@ -23,8 +23,8 @@ public class ticketSystemService {
         return lote;
     }
 
-    public Ticket createTicket(TicketType tipo){
-        Ticket ticket = new Ticket(tipo);
+    public Ticket createTicket(TicketType tipo, double precoNormal){
+        Ticket ticket = new Ticket(tipo, precoNormal);
         return ticket;
     }
 

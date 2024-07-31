@@ -72,7 +72,9 @@ public class ticketSystemServiceTests {
 
     @Test
     public void testGetReceitaLiquida() {
-        Ticket ticket = new Ticket(TicketType.NORMAL);
+        precoNormal = 10;
+        ticketType = TicketType.NORMAL;
+        Ticket ticket = new Ticket(ticketType, precoNormal);
         ticket.setSold(true);
         Lote lote = new Lote(0);
         lote.addTicket(ticket);
@@ -82,8 +84,14 @@ public class ticketSystemServiceTests {
     }
 
     @Test
-    public void testTicketCreation(){
-        Ticket ticket = new Ticket(ticketType);
-        assertEquals(this.ticketType, ticket.getType());
+    public void testGetStatusFinanceiro() {
+        double precoNormal = 10.0;
+        Ticket ticket = new Ticket(TicketType.NORMAL, precoNormal);
+        ticket.setSold(true);
+        Lote lote = new Lote(0);
+        lote.addTicket(ticket);
+        Show show = new Show(data, "Artista Famoso", 1000.0, 2000.0, Arrays.asList(lote), false, 10);
+
+        assertEquals("PREJUÍZO", show.getStatusFinanceiro(precoNormal));
     }
 }
