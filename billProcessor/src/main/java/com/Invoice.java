@@ -1,4 +1,4 @@
-package accountProcessor.src.main.java.com;
+package billProcessor.src.main.java.com;
 
 import java.util.Date;
 
