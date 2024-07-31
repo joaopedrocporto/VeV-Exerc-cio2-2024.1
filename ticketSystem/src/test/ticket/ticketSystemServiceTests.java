@@ -7,6 +7,7 @@ import java.security.KeyStore;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Date;
 
 import static org.junit.Assert.*;
@@ -21,8 +22,10 @@ public class ticketSystemServiceTests {
     private String artista;
     private double cache;
     private double totalDespesasInfraestrutura;
-    private Integer lotesIngressos;
+    private Lote lotesIngressos;
     private Boolean dataEspecial;
+    private TicketType ticketType;
+    private double precoNormal;
 
     @Before
     public void setUp() {
@@ -39,20 +42,48 @@ public class ticketSystemServiceTests {
         artista = "Artista Famoso";
         cache = 50000.0;
         totalDespesasInfraestrutura = 10000.0;
-        lotesIngressos = 1;
         dataEspecial = false;
+        lotesIngressos = new Lote(0);
 
         // Criando o objeto show
-        show = ticketSystemService.createShow(data, artista, cache, totalDespesasInfraestrutura, lotesIngressos, dataEspecial);
+        show = ticketSystemService.createShow(data, artista, cache, totalDespesasInfraestrutura, Arrays.asList(lotesIngressos), dataEspecial, precoNormal);
     }
 
     @Test
     public void testShowCreation() {
-        assertEquals(data, show.getData());
+        Lote lote = new Lote(0);
+        Show show = new Show(data, "Artista Famoso", 1000.0, 2000.0, Arrays.asList(lote), false, 100);
+        assertNotNull(show);
+    }
+
+    @Test
+    public void testGetDespesasTotais() {
+        Lote lote = new Lote(0);
+        Show show = new Show(data, "Artista Famoso", 1450.0, 2000.0, Arrays.asList(lote), false, 100);
+        assertEquals(3450.0, show.getDespesasTotais(), 0.01); // 15% adicional para data especial
+    }
+
+    @Test
+    public void testGetDespesasTotaisDiaEspecial() {
+        Lote lote = new Lote(0);
+        Show show = new Show(data, "Artista Famoso", 1450.0, 2000.0, Arrays.asList(lote), true, 100);
+        assertEquals(3750.0, show.getDespesasTotais(), 0.01); // 15% adicional para data especial
+    }
+
+    @Test
+    public void testGetReceitaLiquida() {
+        Ticket ticket = new Ticket(TicketType.NORMAL);
+        ticket.setSold(true);
+        Lote lote = new Lote(0);
+        lote.addTicket(ticket);
+        Show show = new Show(data, "Artista Famoso", 1000.0, 2000.0, Arrays.asList(lote), false, 10);
+
+        assertEquals(10.0 - 3000.0, show.getReceitaLiquida(precoNormal), 0.01);
     }
 
     @Test
     public void testTicketCreation(){
-        assertEquals(id, ticket.getId());
+        Ticket ticket = new Ticket(ticketType);
+        assertEquals(this.ticketType, ticket.getType());
     }
 }

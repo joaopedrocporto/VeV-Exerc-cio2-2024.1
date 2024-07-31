@@ -12,6 +12,31 @@ public class Ticket {
         this.status = false;
     }
 
+    public double getPrice(double precoNormal){
+        switch (this.tipo){
+            case VIP:
+                return 2 * precoNormal;
+            case MEIA_ENTRADA:
+                return 0.5 * precoNormal;
+            case NORMAL:
+            default:
+                return precoNormal;
+        }
+    }
 
+    public boolean isSold() {
+        return status;
+    }
 
+    public void setStatus(boolean novoStatus){
+        this.status = novoStatus;
+    }
+
+    public void setSold(boolean isSold) {
+        this.status = isSold;
+    }
+
+    public TicketType getType() {
+        return this.tipo;
+    }
 }
