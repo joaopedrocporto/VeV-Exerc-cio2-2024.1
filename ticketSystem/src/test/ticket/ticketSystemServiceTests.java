@@ -94,4 +94,32 @@ public class ticketSystemServiceTests {
 
         assertEquals("PREJUÍZO", show.getStatusFinanceiro(precoNormal));
     }
+
+    @Test
+    public void testTicketCreation() {
+        precoNormal = 10.0;
+        Ticket ticket = new Ticket(TicketType.VIP, precoNormal);
+        assertNotNull(ticket);
+        assertEquals(TicketType.VIP, ticket.getType());
+        assertFalse(ticket.isSold());
+    }
+
+    @Test
+    public void testTicketIdIncrement() {
+        Ticket ticket1 = new Ticket(TicketType.NORMAL, precoNormal);
+        Ticket ticket2 = new Ticket(TicketType.NORMAL, precoNormal);
+        assertEquals(ticket1.getId() + 1, ticket2.getId());
+    }
+
+    @Test
+    public void testTicketPriceCalculation() {
+        double normalPrice = 10.0;
+        Ticket normalTicket = new Ticket(TicketType.NORMAL, precoNormal);
+        Ticket vipTicket = new Ticket(TicketType.VIP, precoNormal);
+        Ticket meiaEntradaTicket = new Ticket(TicketType.MEIA_ENTRADA, precoNormal);
+
+        assertEquals(normalPrice, normalTicket.getPrice(normalPrice), 0.01);
+        assertEquals(2 * normalPrice, vipTicket.getPrice(normalPrice), 0.01);
+        assertEquals(0.5 * normalPrice, meiaEntradaTicket.getPrice(normalPrice), 0.01);
+    }
 }

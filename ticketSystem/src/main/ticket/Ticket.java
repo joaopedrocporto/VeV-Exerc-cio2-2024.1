@@ -41,4 +41,8 @@ public class Ticket {
     public TicketType getType() {
         return this.tipo;
     }
+
+    public int getId() {
+        return this.id;
+    }
 }
