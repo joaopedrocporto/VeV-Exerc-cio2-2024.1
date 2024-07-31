@@ -29,7 +29,7 @@ public class accountProcessorServiceTests {
         try {
             Date date = dateFormatedDate.parse(dateString);
             double accountValue = 12.32;
-            long accountCode = 12;
+            int accountCode = 12;
             Account newAccount = new Account(accountValue, accountCode, date);
             assertEquals(newAccount.accountCode, accountCode);
             assertEquals(newAccount.value, accountValue,12.32);
@@ -66,7 +66,7 @@ public class accountProcessorServiceTests {
             double totalValue = 234.87;
             Date date = dateFormatedDate.parse(dateString);
             Invoice newInvoice = new Invoice(totalValue, date,clientName);
-            assertEquals("Pendente",newInvoice.status);
+            assertEquals("PENDENTE",newInvoice.status);
         }catch (ParseException e) {
             e.printStackTrace();
         }
@@ -83,7 +83,7 @@ public class accountProcessorServiceTests {
             Account account = new Account(12.32, 12, accountDate);
             Date paymentDate = dateFormatedDate.parse("2023-12-12");
             String payment = "BOLETO";
-            Payment newPayment = this.accountProcessor.payBill(newInvoice,account, paymentDate,account.value,payment);
+            Payment newPayment = this.accountProcessor.payBill(newInvoice,account, paymentDate,payment);
         }catch (ParseException e){
             e.printStackTrace();
         }
@@ -101,7 +101,7 @@ public class accountProcessorServiceTests {
             Account account = new Account(12.32, 12, accountDate);
             Date paymentDate = dateFormatedDate.parse("2023-12-12");
             String payment = "BOLETO";
-            Payment newPayment = this.accountProcessor.payBill(newInvoice,account, paymentDate,account.value,payment);
+            Payment newPayment = this.accountProcessor.payBill(newInvoice,account, paymentDate,payment);
         }catch (ParseException e){
             e.printStackTrace();
         }
@@ -117,7 +117,7 @@ public class accountProcessorServiceTests {
             Account account = new Account(12.32, 12, accountDate);
             Date paymentDate = dateFormatedDate.parse("2023-12-12");
             String payment = "TRANSFERENCIA_BANCARIA";
-            Payment newPayment = this.accountProcessor.payBill(newInvoice,account, paymentDate,account.value,payment);
+            Payment newPayment = this.accountProcessor.payBill(newInvoice,account, paymentDate,payment);
         }catch (ParseException e){
             e.printStackTrace();
         }
@@ -133,7 +133,7 @@ public class accountProcessorServiceTests {
             Account account = new Account(12.32, 12, accountDate);
             Date paymentDate = dateFormatedDate.parse("2023-12-12");
             String payment = "CARTAO_CREDITO";
-            Payment newPayment = this.accountProcessor.payBill(newInvoice,account, paymentDate,account.value,payment);
+            Payment newPayment = this.accountProcessor.payBill(newInvoice,account, paymentDate,payment);
             assertEquals(newPayment.invoice, newInvoice);
         }catch (ParseException e){
             e.printStackTrace();
@@ -151,7 +151,7 @@ public class accountProcessorServiceTests {
             Date paymentDate = dateFormatedDate.parse("2023-12-12");
             String payment = "BOLETO";
             assertThrows(IllegalArgumentException.class, () -> {
-                accountProcessor.payBill(newInvoice,account, paymentDate,account.value,payment);
+                accountProcessor.payBill(newInvoice,account, paymentDate,payment);
             });
         }catch (ParseException e){
             e.printStackTrace();
@@ -170,7 +170,7 @@ public class accountProcessorServiceTests {
             Date paymentDate = dateFormatedDate.parse("2023-12-12");
             String payment = "BOLETO";
             assertThrows(IllegalArgumentException.class, () -> {
-                accountProcessor.payBill(newInvoice,account, paymentDate,account.value,payment);
+                accountProcessor.payBill(newInvoice,account, paymentDate,payment);
             });
         }catch (ParseException e){
             e.printStackTrace();
@@ -189,7 +189,7 @@ public class accountProcessorServiceTests {
             Date paymentDate = dateFormatedDate.parse("2023-12-12");
             String payment = "BOLETO";
             assertThrows(IllegalArgumentException.class, () -> {
-                accountProcessor.payBill(newInvoice,account, paymentDate,account.value,payment);
+                accountProcessor.payBill(newInvoice,account, paymentDate,payment);
             });
         }catch (ParseException e){
             e.printStackTrace();
@@ -208,7 +208,7 @@ public class accountProcessorServiceTests {
             Date paymentDate = dateFormatedDate.parse("2023-12-13");
             String payment = "BOLETO";
             assertThrows(IllegalArgumentException.class, () -> {
-                accountProcessor.payBill(newInvoice,account, paymentDate,account.value,payment);
+                accountProcessor.payBill(newInvoice,account, paymentDate,payment);
             });
         }catch (ParseException e){
             e.printStackTrace();
@@ -227,7 +227,7 @@ public class accountProcessorServiceTests {
             Date paymentDate = dateFormatedDate.parse("2023-12-13");
             String payment = "TRANSFERENCIA_BANCARIA";
             assertThrows(IllegalArgumentException.class, () -> {
-                accountProcessor.payBill(newInvoice,account, paymentDate,account.value,payment);
+                accountProcessor.payBill(newInvoice,account, paymentDate,payment);
             });
         }catch (ParseException e){
             e.printStackTrace();
@@ -245,7 +245,7 @@ public class accountProcessorServiceTests {
             Date paymentDate = dateFormatedDate.parse("2023-12-12");
             String payment = "CARTAO_CREDITO";
             assertThrows(IllegalArgumentException.class, () -> {
-                accountProcessor.payBill(newInvoice,account, paymentDate,account.value,payment);
+                accountProcessor.payBill(newInvoice,account, paymentDate,payment);
             });
         }catch (ParseException e){
             e.printStackTrace();
@@ -265,7 +265,7 @@ public class accountProcessorServiceTests {
             Account account3 = new Account(10, 3, accountDate1);
             Date paymentDate1 = dateFormatedDate.parse("2023-12-12");
             String paymentType = "TRANSACAO_BANCARIA";
-            Payment payment = accountProcessor.payBill(newInvoice,account1, paymentDate1,account1.value,paymentType);
+            Payment payment = accountProcessor.payBill(newInvoice,account1, paymentDate1,paymentType);
 
         }catch (ParseException e){
             e.printStackTrace();
@@ -273,6 +273,34 @@ public class accountProcessorServiceTests {
     }
     @Test
     public void testPaymentInsuficietValue(){
+
+        try {
+
+            Date dateInvoice = dateFormatedDate.parse("2023-12-31");
+            Invoice invoice = new Invoice(34.87, dateInvoice,"Valber Azevedo");
+            Date accountDate1 = dateFormatedDate.parse("2023-12-10");
+            Account account1 = new Account(10, 1, accountDate1);
+            Account account2 = new Account(10, 2, accountDate1);
+            Account account3 = new Account(10, 3, accountDate1);
+            Date paymentDate1 = dateFormatedDate.parse("2023-12-12");
+            String paymentType = "TRANSACAO_BANCARIA";
+            List<Account> billList = new ArrayList<>();
+            billList.add(account1);
+            billList.add(account2);
+            billList.add(account3);
+            Map<Integer, String> billsPaymentsWay = new HashMap<>();
+            billsPaymentsWay.put(account1.accountCode, "TRANSACAO_BANCARIA");
+            billsPaymentsWay.put(account2.accountCode, "TRANSACAO_BANCARIA");
+            billsPaymentsWay.put(account3.accountCode, "TRANSACAO_BANCARIA");
+            Invoice processedInvoice = accountProcessor.processBills(invoice,billList, billsPaymentsWay);
+            assertEquals(processedInvoice.status, "PAGA");
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testPaymentSuficietValue(){
 
         try {
 
@@ -285,33 +313,15 @@ public class accountProcessorServiceTests {
             Date paymentDate1 = dateFormatedDate.parse("2023-12-12");
             String paymentType = "TRANSACAO_BANCARIA";
             List<Account> billList = new ArrayList<>();
-            Map<Long, String> billsPaymentsWay = new HashMap<>();
+            billList.add(account1);
+            billList.add(account2);
+            billList.add(account3);
+            Map<Integer, String> billsPaymentsWay = new HashMap<>();
+            billsPaymentsWay.put(account1.accountCode, "TRANSACAO_BANCARIA");
+            billsPaymentsWay.put(account2.accountCode, "TRANSACAO_BANCARIA");
+            billsPaymentsWay.put(account3.accountCode, "TRANSACAO_BANCARIA");
             Invoice processedInvoice = accountProcessor.processBills(invoice,billList, billsPaymentsWay);
-            assertEquals(processedInvoice.status, "Pendente");
-
-        }catch (ParseException e){
-            e.printStackTrace();
-        }
-    }
-
-    @Test
-    public void testPaymentInsuficietValue(){
-
-        try {
-
-            Date dateInvoice = dateFormatedDate.parse("2023-12-31");
-            Invoice invoice = new Invoice(24.87, dateInvoice,"Valber Azevedo");
-            Date accountDate1 = dateFormatedDate.parse("2023-12-10");
-            Account account1 = new Account(10, 1, accountDate1);
-            Account account2 = new Account(10, 2, accountDate1);
-            Account account3 = new Account(10, 3, accountDate1);
-            Date paymentDate1 = dateFormatedDate.parse("2023-12-12");
-            String paymentType = "TRANSACAO_BANCARIA";
-            List<Account> billList = new ArrayList<>();
-            Map<Long, String> billsPaymentsWay = new HashMap<>();
-            Invoice processedInvoice = accountProcessor.processBills(invoice,billList, billsPaymentsWay);
-            assertEquals(processedInvoice.status, "Pago");
-
+            assertEquals(processedInvoice.status, "PENDENTE");
         }catch (ParseException e){
             e.printStackTrace();
         }
