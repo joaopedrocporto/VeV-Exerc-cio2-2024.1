@@ -147,7 +147,7 @@ public class accountProcessorServiceTests {
             Date dateInvoice = dateFormatedDate.parse("2023-12-13");
             Invoice newInvoice = new Invoice(234.87, dateInvoice,"Valber Azevedo");
             Date accountDate = dateFormatedDate.parse("2023-12-11");
-            Account account = new Account(5012.32, 11, accountDate);
+            Account account = new Account(5501.32, 11, accountDate);
             Date paymentDate = dateFormatedDate.parse("2023-12-12");
             String payment = "BOLETO";
             assertThrows(IllegalArgumentException.class, () -> {
@@ -159,20 +159,19 @@ public class accountProcessorServiceTests {
     }
 
     @Test
-    public void testPaymenTicketAfterDateCreation(){
+    public void testPaymentWrongValueCreation(){
 
         try {
 
             Date dateInvoice = dateFormatedDate.parse("2023-12-13");
             Invoice newInvoice = new Invoice(234.87, dateInvoice,"Valber Azevedo");
-            Date accountDate = dateFormatedDate.parse("2023-12-12");
-            Account account = new Account(0.001, 10, accountDate);
+            Date accountDate = dateFormatedDate.parse("2023-12-11");
+            Account account = new Account(0.0032, 11, accountDate);
             Date paymentDate = dateFormatedDate.parse("2023-12-12");
-            String paymentMethod = "BOLETO";
-            Payment payment = accountProcessor.payBill(newInvoice,account, paymentDate,account.value,paymentMethod);
-            double afterTimeValue = account.value *1.1;
-            assertEquals(payment.value,afterTimeValue);
-
+            String payment = "BOLETO";
+            assertThrows(IllegalArgumentException.class, () -> {
+                accountProcessor.payBill(newInvoice,account, paymentDate,account.value,payment);
+            });
         }catch (ParseException e){
             e.printStackTrace();
         }
@@ -198,7 +197,7 @@ public class accountProcessorServiceTests {
     }
 
     @Test
-    public void testPaymentWrongDateCreation(){
+    public void testPaymentWithAccountAfterInvoice(){
 
         try {
 
@@ -217,7 +216,7 @@ public class accountProcessorServiceTests {
     }
 
     @Test
-    public void testPaymentWrongDateCreation(){
+    public void testPaymentWrongDateTransactionCreation(){
 
         try {
 
@@ -235,7 +234,7 @@ public class accountProcessorServiceTests {
         }
     }
     @Test
-    public void testPaymentWrongDateCreation(){
+    public void testPaymentWrongDateCardCreation(){
 
         try {
 
