@@ -40,4 +40,8 @@ public class Lote {
     public double getDiscount() {
         return this.discount;
     }
+
+    public int getId() {
+        return this.id;
+    }
 }

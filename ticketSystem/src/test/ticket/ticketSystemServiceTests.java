@@ -2,8 +2,6 @@ package ticket;
 
 import org.junit.Test;
 import org.junit.Before;
-import javax.security.auth.login.AccountException;
-import java.security.KeyStore;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -85,7 +83,7 @@ public class ticketSystemServiceTests {
     }
 
     @Test
-    public void testGetStatusFinanceiro() {
+    public void testGetStatusFinanceiroPrejuizo() {
         double precoNormal = 10.0;
         Ticket ticket = new Ticket(TicketType.NORMAL, precoNormal);
         ticket.setSold(true);
@@ -95,6 +93,104 @@ public class ticketSystemServiceTests {
 
         assertEquals("PREJUÍZO", show.getStatusFinanceiro(precoNormal));
     }
+
+    @Test
+    public void testGetStatusFinanceiroEstavel() {
+        double precoNormal = 3000.0;
+        Ticket ticket = new Ticket(TicketType.NORMAL, precoNormal);
+        ticket.setSold(true);
+        Lote lote = new Lote(0);
+        lote.addTicket(ticket);
+        Show show = new Show(data, "Artista Famoso", 1000.0, 2000.0, Arrays.asList(lote), false, 10);
+
+        assertEquals("ESTÁVEL", show.getStatusFinanceiro(precoNormal));
+    }
+
+    @Test
+    public void testGetStatusFinanceiroLucro() {
+        double precoNormal = 5000.0;
+        Ticket ticket = new Ticket(TicketType.NORMAL, precoNormal);
+        ticket.setSold(true);
+        Lote lote = new Lote(0);
+        lote.addTicket(ticket);
+        Show show = new Show(data, "Artista Famoso", 1000.0, 2000.0, Arrays.asList(lote), false, 10);
+
+        assertEquals("LUCRO", show.getStatusFinanceiro(precoNormal));
+    }
+
+    @Test
+    public void testVendaPorTipoDeIngressoNormal(){
+        double precoNormal = 10.0;
+        Ticket ticket1 = new Ticket(TicketType.NORMAL, precoNormal);
+        Ticket ticket2 = new Ticket(TicketType.MEIA_ENTRADA, precoNormal);
+        Ticket ticket3 = new Ticket(TicketType.VIP, precoNormal);
+        Ticket ticket4 = new Ticket(TicketType.NORMAL, precoNormal);
+        ticket1.setSold(true);
+        ticket2.setSold(true);
+        ticket3.setSold(true);
+        ticket4.setSold(true);
+        Lote lote = new Lote(0);
+        lote.addTicket(ticket1);
+        lote.addTicket(ticket2);
+        lote.addTicket(ticket3);
+        lote.addTicket(ticket4);
+        Show show = new Show(data, "Artista Famoso", 1000.0, 2000.0, Arrays.asList(lote), false, 10);
+
+        assertEquals(2, show.getTotalTicketsSoldByType(TicketType.NORMAL));
+    }
+
+    @Test
+    public void testVendaPorTipoDeIngressoMeia(){
+        double precoNormal = 10.0;
+        Ticket ticket1 = new Ticket(TicketType.NORMAL, precoNormal);
+        Ticket ticket2 = new Ticket(TicketType.MEIA_ENTRADA, precoNormal);
+        Ticket ticket3 = new Ticket(TicketType.VIP, precoNormal);
+        Ticket ticket4 = new Ticket(TicketType.NORMAL, precoNormal);
+        ticket1.setSold(true);
+        ticket2.setSold(true);
+        ticket3.setSold(true);
+        Lote lote = new Lote(0);
+        lote.addTicket(ticket1);
+        lote.addTicket(ticket2);
+        lote.addTicket(ticket3);
+        lote.addTicket(ticket4);
+        Show show = new Show(data, "Artista Famoso", 1000.0, 2000.0, Arrays.asList(lote), false, 10);
+
+        assertEquals(1, show.getTotalTicketsSoldByType(TicketType.MEIA_ENTRADA));
+    }
+
+    @Test
+    public void testVendaPorTipoDeIngressoVip(){
+        double precoNormal = 10.0;
+        Ticket ticket1 = new Ticket(TicketType.NORMAL, precoNormal);
+        Ticket ticket2 = new Ticket(TicketType.MEIA_ENTRADA, precoNormal);
+        Ticket ticket3 = new Ticket(TicketType.VIP, precoNormal);
+        Ticket ticket4 = new Ticket(TicketType.NORMAL, precoNormal);
+        ticket1.setSold(true);
+        ticket2.setSold(true);
+        ticket3.setSold(true);
+        Lote lote = new Lote(0);
+        lote.addTicket(ticket1);
+        lote.addTicket(ticket2);
+        lote.addTicket(ticket3);
+        lote.addTicket(ticket4);
+        Show show = new Show(data, "Artista Famoso", 1000.0, 2000.0, Arrays.asList(lote), false, 10);
+
+        assertEquals(1, show.getTotalTicketsSoldByType(TicketType.VIP));
+    }
+
+    @Test
+    public void testGetRelatorio(){
+        double precoNormal = 10.0;
+        Ticket ticket = new Ticket(TicketType.NORMAL, precoNormal);
+        ticket.setSold(true);
+        Lote lote = new Lote(0);
+        lote.addTicket(ticket);
+        Show show = new Show(data, "Artista Famoso", 1000.0, 2000.0, Arrays.asList(lote), false, 10);
+
+        assertEquals("Relatório do Show: Artista: Artista Famoso Data Especial: false Despesas Totais: R$ 3000.0 Receita Líquida: R$ -2990.0 Status Financeiro: PREJUÍZO Ingressos Vendidos (VIP): 0 Ingressos Vendidos (MEIA_ENTRADA): 0 Ingressos Vendidos (NORMAL): 1", show.toString());
+    }
+
 
     @Test
     public void testTicketCreation() {
@@ -133,6 +229,13 @@ public class ticketSystemServiceTests {
     }
 
     @Test
+    public void testLoteIdIncrement() {
+        Lote lote1 = new Lote(10.0);
+        Lote lote2 = new Lote(0);
+        assertEquals(lote1.getId() + 1, lote2.getId());
+    }
+
+    @Test
     public void testAddTicketToLote() {
         Lote lote = new Lote(0);
         Ticket ticket = new Ticket(TicketType.NORMAL, precoNormal);
@@ -155,7 +258,12 @@ public class ticketSystemServiceTests {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testInvalidDiscount() {
+    public void testInvalidDiscountMore() {
         new Lote(30.0); // Desconto acima de 25%
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testInvalidDiscountLess() {
+        new Lote(-1.0); // Desconto abaixo de 0%
     }
 }

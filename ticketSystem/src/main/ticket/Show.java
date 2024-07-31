@@ -29,14 +29,14 @@ public class Show{
     @Override
     public String toString(){
         return "Relatório do Show:" + 
-                "Artista: " + artista +
-                "Data Especial: " + dataEspecial +
-                "Despesas Totais: R$ " + getDespesasTotais() +
-                "Receita Líquida: R$ " + getReceitaLiquida(precoNormal) +
-                "Status Financeiro: " + getStatusFinanceiro(precoNormal) +
-                "Ingressos Vendidos (VIP): " + getTotalTicketsSoldByType(TicketType.VIP) +
-                "Ingressos Vendidos (MEIA_ENTRADA): " + getTotalTicketsSoldByType(TicketType.MEIA_ENTRADA) +
-                "Ingressos Vendidos (NORMAL): " + getTotalTicketsSoldByType(TicketType.NORMAL);
+                " Artista: " + artista +
+                " Data Especial: " + dataEspecial +
+                " Despesas Totais: R$ " + getDespesasTotais() +
+                " Receita Líquida: R$ " + getReceitaLiquida(precoNormal) +
+                " Status Financeiro: " + getStatusFinanceiro(precoNormal) +
+                " Ingressos Vendidos (VIP): " + getTotalTicketsSoldByType(TicketType.VIP) +
+                " Ingressos Vendidos (MEIA_ENTRADA): " + getTotalTicketsSoldByType(TicketType.MEIA_ENTRADA) +
+                " Ingressos Vendidos (NORMAL): " + getTotalTicketsSoldByType(TicketType.NORMAL);
     }
 
     public int getTotalTicketsSoldByType(TicketType type) {
