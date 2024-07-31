@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -29,7 +29,7 @@ public class accountProcessorServiceTests {
         try {
             Date date = dateFormatedDate.parse(dateString);
             double accountValue = 12.32;
-            int accountCode = 12;
+            long accountCode = 12;
             Account newAccount = new Account(accountValue, accountCode, date);
             assertEquals(newAccount.accountCode, accountCode);
             assertEquals(newAccount.value, accountValue,12.32);
@@ -251,6 +251,73 @@ public class accountProcessorServiceTests {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void testPayment(){
+
+        try {
+
+            Date dateInvoice = dateFormatedDate.parse("2023-12-31");
+            Invoice newInvoice = new Invoice(24.87, dateInvoice,"Valber Azevedo");
+            Date accountDate1 = dateFormatedDate.parse("2023-12-10");
+            Account account1 = new Account(10, 1, accountDate1);
+            Account account2 = new Account(10, 2, accountDate1);
+            Account account3 = new Account(10, 3, accountDate1);
+            Date paymentDate1 = dateFormatedDate.parse("2023-12-12");
+            String paymentType = "TRANSACAO_BANCARIA";
+            Payment payment = accountProcessor.payBill(newInvoice,account1, paymentDate1,account1.value,paymentType);
+
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
+    }
+    @Test
+    public void testPaymentInsuficietValue(){
+
+        try {
+
+            Date dateInvoice = dateFormatedDate.parse("2023-12-31");
+            Invoice invoice = new Invoice(24.87, dateInvoice,"Valber Azevedo");
+            Date accountDate1 = dateFormatedDate.parse("2023-12-10");
+            Account account1 = new Account(10, 1, accountDate1);
+            Account account2 = new Account(10, 2, accountDate1);
+            Account account3 = new Account(10, 3, accountDate1);
+            Date paymentDate1 = dateFormatedDate.parse("2023-12-12");
+            String paymentType = "TRANSACAO_BANCARIA";
+            List<Account> billList = new ArrayList<>();
+            Map<Long, String> billsPaymentsWay = new HashMap<>();
+            Invoice processedInvoice = accountProcessor.processBills(invoice,billList, billsPaymentsWay);
+            assertEquals(processedInvoice.status, "Pendente");
+
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testPaymentInsuficietValue(){
+
+        try {
+
+            Date dateInvoice = dateFormatedDate.parse("2023-12-31");
+            Invoice invoice = new Invoice(24.87, dateInvoice,"Valber Azevedo");
+            Date accountDate1 = dateFormatedDate.parse("2023-12-10");
+            Account account1 = new Account(10, 1, accountDate1);
+            Account account2 = new Account(10, 2, accountDate1);
+            Account account3 = new Account(10, 3, accountDate1);
+            Date paymentDate1 = dateFormatedDate.parse("2023-12-12");
+            String paymentType = "TRANSACAO_BANCARIA";
+            List<Account> billList = new ArrayList<>();
+            Map<Long, String> billsPaymentsWay = new HashMap<>();
+            Invoice processedInvoice = accountProcessor.processBills(invoice,billList, billsPaymentsWay);
+            assertEquals(processedInvoice.status, "Pago");
+
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
+    }
+
+
 
 
 }
