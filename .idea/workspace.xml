@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="aa41c119-ac19-43d5-b84f-1c5c5253d7ef" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/VeV-Exerc-cio2-2024.1.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="Enum" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="ticket" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 0
+}]]></component>
+  <component name="ProjectId" id="2jwSSYRDLyNA1oTbqjidC87KP6j" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Downloaded.Files.Path.Enabled": "false",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "account",
+    "last_opened_file_path": "D:/Area de Trabalho/OneDrive/Área de Trabalho/ufcg/vev/VeV-Exerc-cio2-2024.1/accountProcessor/src/test",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "JAVA"
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="accountProcessor.src.main.java.com" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Area de Trabalho\OneDrive\Área de Trabalho\ufcg\vev\VeV-Exerc-cio2-2024.1\accountProcessor\src\test" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Area de Trabalho\OneDrive\Área de Trabalho\ufcg\vev\VeV-Exerc-cio2-2024.1\accountProcessor\src\test" />
+      <recent name="D:\Area de Trabalho\OneDrive\Área de Trabalho\ufcg\vev\VeV-Exerc-cio2-2024.1\accountProcessor\src\main\java\com" />
+      <recent name="D:\Area de Trabalho\OneDrive\Área de Trabalho\ufcg\vev\VeV-Exerc-cio2-2024.1\accountProcessor\src\main" />
+      <recent name="D:\Area de Trabalho\OneDrive\Área de Trabalho\ufcg\vev\VeV-Exerc-cio2-2024.1\accountProcessor\src" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.ticketSystemServiceTests">
+    <configuration name="accountProcessorServiceTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="VeV-Exerc-cio2-2024.1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="accountProcessor.src.test.java.com.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="accountProcessor.src.test.java.com" />
+      <option name="MAIN_CLASS_NAME" value="accountProcessor.src.test.java.com.accountProcessorServiceTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="accountProcessorServiceTests.testPaymentWrongticketCreation2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="VeV-Exerc-cio2-2024.1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="accountProcessor.src.test.java.com.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="accountProcessor.src.test.java.com" />
+      <option name="MAIN_CLASS_NAME" value="accountProcessor.src.test.java.com.accountProcessorServiceTests" />
+      <option name="METHOD_NAME" value="testPaymentWrongticketCreation2" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="billProcessorServiceTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="VeV-Exerc-cio2-2024.1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="billProcessor.src.test.java.com.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="billProcessor.src.test.java.com" />
+      <option name="MAIN_CLASS_NAME" value="billProcessor.src.test.java.com.billProcessorServiceTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="billProcessorServiceTests.testExample3" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="VeV-Exerc-cio2-2024.1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="billProcessor.src.test.java.com.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="billProcessor.src.test.java.com" />
+      <option name="MAIN_CLASS_NAME" value="billProcessor.src.test.java.com.billProcessorServiceTests" />
+      <option name="METHOD_NAME" value="testExample3" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ticketSystemServiceTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="VeV-Exerc-cio2-2024.1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ticket.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ticket" />
+      <option name="MAIN_CLASS_NAME" value="ticket.ticketSystemServiceTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.ticketSystemServiceTests" />
+        <item itemvalue="JUnit.billProcessorServiceTests" />
+        <item itemvalue="JUnit.billProcessorServiceTests.testExample3" />
+        <item itemvalue="JUnit.accountProcessorServiceTests" />
+        <item itemvalue="JUnit.accountProcessorServiceTests.testPaymentWrongticketCreation2" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="aa41c119-ac19-43d5-b84f-1c5c5253d7ef" name="Changes" comment="" />
+      <created>1722296646609</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1722296646609</updated>
+      <workItem from="1722296648908" duration="42029000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/billProcessor/src/test/java/com/billProcessorServiceTests.java</url>
+          <line>365</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
