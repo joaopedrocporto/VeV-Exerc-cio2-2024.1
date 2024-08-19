@@ -1,10 +1,7 @@
-package java.com;
+package bill;
 
 
 
-import java.com.Bill;
-import java.com.BillSystemService;
-import java.com.Invoice;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -130,7 +127,7 @@ public class BillSystemServiceTests {
             Date paymentDate = dateFormatedDate.parse("2023-12-12");
             String payment = "CARTAO_CREDITO";
             double paidValue = this.billProcessorService.payBill(newInvoice, bill, paymentDate, payment);
-            assertEquals(bill.value, paidValue);
+            assertEquals(bill.value, paidValue,0.0001);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -179,8 +176,8 @@ public class BillSystemServiceTests {
             Bill bill = new Bill(0.001, 10, billDate);
             Date paymentDate = dateFormatedDate.parse("2023-12-12");
             String payment = "BOLETO";
-            assertEquals(0,
-                    billProcessorService.payBill(newInvoice, bill, paymentDate, payment));
+            assertEquals(0.0,
+                    billProcessorService.payBill(newInvoice, bill, paymentDate, payment),0.00001);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -195,8 +192,8 @@ public class BillSystemServiceTests {
             Bill bill = new Bill(10, 10, billDate);
             Date paymentDate = dateFormatedDate.parse("2023-12-13");
             String payment = "BOLETO";
-            assertEquals(0,
-                    billProcessorService.payBill(newInvoice, bill, paymentDate, payment));
+            assertEquals(0.0,
+                    billProcessorService.payBill(newInvoice, bill, paymentDate, payment),0.0001);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -211,7 +208,7 @@ public class BillSystemServiceTests {
             Bill bill = new Bill(10, 10, billDate);
             Date paymentDate = dateFormatedDate.parse("2023-12-13");
             String payment = "TRANSFERENCIA_BANCARIA";
-            assertEquals(0,billProcessorService.payBill(newInvoice, bill, paymentDate, payment));
+            assertEquals(0.0,billProcessorService.payBill(newInvoice, bill, paymentDate, payment),0.0001);
 
         } catch (ParseException e) {
             e.printStackTrace();
@@ -226,7 +223,7 @@ public class BillSystemServiceTests {
             Bill bill = new Bill(10, 10, billDate);
             Date paymentDate = dateFormatedDate.parse("2023-12-12");
             String payment = "CARTAO_CREDITO";
-            assertEquals(0,billProcessorService.payBill(newInvoice, bill, paymentDate, payment));
+            assertEquals(0.0,billProcessorService.payBill(newInvoice, bill, paymentDate, payment),0.0001);
 
         } catch (ParseException e) {
             e.printStackTrace();

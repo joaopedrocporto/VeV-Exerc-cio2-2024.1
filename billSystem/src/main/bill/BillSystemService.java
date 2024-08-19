@@ -1,4 +1,4 @@
-package java.com;
+package bill;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
