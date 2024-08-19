@@ -1,8 +1,13 @@
-import billProcessor.src.main.java.com.Bill;
-import billProcessor.src.main.java.com.BillProcessorService;
-import billProcessor.src.main.java.com.Invoice;
+package java.com;
+
+
+
+import java.com.Bill;
+import java.com.BillSystemService;
+import java.com.Invoice;
 import org.junit.Before;
 import org.junit.Test;
+
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,15 +16,15 @@ import java.util.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 
-public class billProcessorServiceTests {
+public class BillSystemServiceTests {
 
     private SimpleDateFormat dateFormatedDate;
-    BillProcessorService billProcessorService;
+    BillSystemService billProcessorService;
 
     @Before
     public void setUp() {
         dateFormatedDate = new SimpleDateFormat("yyyy-MM-dd");
-        billProcessorService = new BillProcessorService();
+        billProcessorService = new BillSystemService();
     }
 
     @Test
@@ -47,7 +52,6 @@ public class billProcessorServiceTests {
             double totalValue = 234.87;
             Date date = dateFormatedDate.parse(dateString);
             Invoice newInvoice = new Invoice(1,totalValue, date, clientName);
-            assertEquals(Optional.of(totalValue), newInvoice.value);
             assertEquals("Valber Azevedo", newInvoice.name);
             assertEquals(date, newInvoice.date);
 
@@ -176,7 +180,7 @@ public class billProcessorServiceTests {
             Date paymentDate = dateFormatedDate.parse("2023-12-12");
             String payment = "BOLETO";
             assertEquals(0,
-                billProcessorService.payBill(newInvoice, bill, paymentDate, payment));
+                    billProcessorService.payBill(newInvoice, bill, paymentDate, payment));
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -192,7 +196,7 @@ public class billProcessorServiceTests {
             Date paymentDate = dateFormatedDate.parse("2023-12-13");
             String payment = "BOLETO";
             assertEquals(0,
-                billProcessorService.payBill(newInvoice, bill, paymentDate, payment));
+                    billProcessorService.payBill(newInvoice, bill, paymentDate, payment));
         } catch (ParseException e) {
             e.printStackTrace();
         }

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/billProcessor.iml" filepath="$PROJECT_DIR$/billProcessor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/billSystem.iml" filepath="$PROJECT_DIR$/.idea/billSystem.iml" />
     </modules>
   </component>
 </project>

@@ -1,4 +1,4 @@
-package billProcessor.src.main.java.com;
+package java.com;
 
 import java.util.Date;
 

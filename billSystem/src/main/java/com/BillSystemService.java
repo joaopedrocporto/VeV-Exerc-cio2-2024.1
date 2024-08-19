@@ -1,17 +1,17 @@
-package billProcessor.src.main.java.com;
+package java.com;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-public class BillProcessorService {
+public class BillSystemService {
 
     Map<Integer, Bill> bills;
         Map<Integer, Invoice> invoices;
     private SimpleDateFormat dateFormatedDate;
 
-    public BillProcessorService(){
+    public BillSystemService(){
         this.bills = new HashMap<>();
         this.invoices = new HashMap<>();
         this.dateFormatedDate  = new SimpleDateFormat("yyyy-MM-dd");
