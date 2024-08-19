@@ -5,13 +5,13 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-public class billProcessorService {
+public class BillProcessorService {
 
     Map<Integer, Bill> bills;
         Map<Integer, Invoice> invoices;
     private SimpleDateFormat dateFormatedDate;
 
-    public billProcessorService(){
+    public BillProcessorService(){
         this.bills = new HashMap<>();
         this.invoices = new HashMap<>();
         this.dateFormatedDate  = new SimpleDateFormat("yyyy-MM-dd");

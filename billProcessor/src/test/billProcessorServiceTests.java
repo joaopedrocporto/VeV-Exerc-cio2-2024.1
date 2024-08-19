@@ -1,28 +1,25 @@
-package billProcessor.src.test.java.com;
-
 import billProcessor.src.main.java.com.Bill;
+import billProcessor.src.main.java.com.BillProcessorService;
 import billProcessor.src.main.java.com.Invoice;
-import billProcessor.src.main.java.com.Payment;
-import billProcessor.src.main.java.com.billProcessorService;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 
 public class billProcessorServiceTests {
 
     private SimpleDateFormat dateFormatedDate;
-    billProcessorService billProcessorService;
+    BillProcessorService billProcessorService;
 
-    @BeforeEach
+    @Before
     public void setUp() {
         dateFormatedDate = new SimpleDateFormat("yyyy-MM-dd");
-        billProcessorService = new billProcessorService();
+        billProcessorService = new BillProcessorService();
     }
 
     @Test
@@ -50,7 +47,7 @@ public class billProcessorServiceTests {
             double totalValue = 234.87;
             Date date = dateFormatedDate.parse(dateString);
             Invoice newInvoice = new Invoice(1,totalValue, date, clientName);
-            assertEquals(totalValue, newInvoice.value);
+            assertEquals(Optional.of(totalValue), newInvoice.value);
             assertEquals("Valber Azevedo", newInvoice.name);
             assertEquals(date, newInvoice.date);
 
