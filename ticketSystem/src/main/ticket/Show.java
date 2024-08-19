@@ -74,6 +74,18 @@ public class Show{
         return receita - getDespesasTotais();
     }
 
+    public double getPrecoTicketPorLote(double precoNormal, Lote lote){
+        for (Lote lotes : lotesIngressos) {
+            for (Ticket ticket : lote.getTickets()) {
+                if(lotes.equals(lote)){
+                    return ticket.getPrice(precoNormal) * (1 - lotes.getDiscount() / 100);
+                }
+
+            }
+        }
+        return 0.0;
+    }
+
     public String getStatusFinanceiro(double precoNormal) {
         double receitaLiquida = getReceitaLiquida(precoNormal);
         if (receitaLiquida > 0) {

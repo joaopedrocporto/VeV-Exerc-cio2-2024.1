@@ -268,12 +268,142 @@ public class ticketSystemServiceFunctionalTests {
 
     // Tabelas de Decisão
     @Test
-    public void testTabelaDecisaoShowComLucro() {
-        // Implementação do teste CT11
+    public void testTabelaDecisaoCenario1() {
+        try {
+            double precoNormal = 100;
+            Ticket ticket = new Ticket(TicketType.VIP, precoNormal);
+            ticket.setSold(true);
+            Lote lote = new Lote(0);
+            lote.addTicket(ticket);
+
+            Show show2 = ticketSystemService.createShow(data, "artista", cache, totalDespesasInfraestrutura, List.of(lote), false, precoNormal);
+
+            assertEquals(precoNormal*2, ticket.getPrice(precoNormal), 0.01);
+            assertEquals((cache + totalDespesasInfraestrutura), show.getDespesasTotais(), 0.01);
+            assertEquals(-59800.0, show2.getReceitaLiquida(precoNormal), 0.01);
+            assertEquals("PREJUÍZO", show.getStatusFinanceiro(precoNormal));
+        }catch (Exception e) {
+            fail("O teste falhou devido a uma exceção: " + e.getMessage());
+        }
     }
 
     @Test
-    public void testTabelaDecisaoShowComPrejuizo() {
-        // Implementação do teste CT12
+    public void testTabelaDecisaoCenario2() {
+        try {
+            double precoNormal = 100;
+            Ticket ticket = new Ticket(TicketType.VIP, precoNormal);
+            ticket.setSold(true);
+            Lote lote = new Lote(10);
+            lote.addTicket(ticket);
+
+            Show show2 = ticketSystemService.createShow(data, "artista", cache, totalDespesasInfraestrutura, List.of(lote), false, precoNormal);
+
+            assertEquals((precoNormal*2)*0.9, show2.getPrecoTicketPorLote(precoNormal, lote), 0.01);
+            assertEquals((cache + totalDespesasInfraestrutura), show.getDespesasTotais(), 0.01);
+            assertEquals(-59820.0, show2.getReceitaLiquida(precoNormal), 0.01);
+            assertEquals("PREJUÍZO", show.getStatusFinanceiro(precoNormal));
+        }catch (Exception e) {
+            fail("O teste falhou devido a uma exceção: " + e.getMessage());
+        }
+    }
+
+    @Test
+    public void testTabelaDecisaoCenario3() {
+        try {
+            double precoNormal = 100;
+            Ticket ticket = new Ticket(TicketType.VIP, precoNormal);
+            ticket.setSold(true);
+            Lote lote = new Lote(10);
+            lote.addTicket(ticket);
+
+            Show show2 = ticketSystemService.createShow(data, "artista", cache, totalDespesasInfraestrutura, List.of(lote), true, precoNormal);
+
+            assertEquals((precoNormal*2)*0.9, show2.getPrecoTicketPorLote(precoNormal, lote), 0.01);
+            assertEquals(cache + (totalDespesasInfraestrutura * 1.15), show2.getDespesasTotais(), 0.01);
+            assertEquals(-61320.0, show2.getReceitaLiquida(precoNormal), 0.01);
+            assertEquals("PREJUÍZO", show.getStatusFinanceiro(precoNormal));
+        }catch (Exception e) {
+            fail("O teste falhou devido a uma exceção: " + e.getMessage());
+        }
+    }
+
+    @Test
+    public void testTabelaDecisaoCenario4() {
+        try {
+            double precoNormal = 100;
+            Ticket ticket = new Ticket(TicketType.MEIA_ENTRADA, precoNormal);
+            ticket.setSold(true);
+            Lote lote = new Lote(0);
+            lote.addTicket(ticket);
+
+            Show show2 = ticketSystemService.createShow(data, "artista", cache, totalDespesasInfraestrutura, List.of(lote), false, precoNormal);
+
+            assertEquals((precoNormal*0.5), show2.getPrecoTicketPorLote(precoNormal, lote), 0.01);
+            assertEquals(cache + totalDespesasInfraestrutura, show2.getDespesasTotais(), 0.01);
+            assertEquals(-59950, show2.getReceitaLiquida(precoNormal), 0.01);
+            assertEquals("PREJUÍZO", show.getStatusFinanceiro(precoNormal));
+        }catch (Exception e) {
+            fail("O teste falhou devido a uma exceção: " + e.getMessage());
+        }
+    }
+
+    @Test
+    public void testTabelaDecisaoCenario5() {
+        try {
+            double precoNormal = 100;
+            Ticket ticket = new Ticket(TicketType.MEIA_ENTRADA, precoNormal);
+            ticket.setSold(true);
+            Lote lote = new Lote(10);
+            lote.addTicket(ticket);
+
+            Show show2 = ticketSystemService.createShow(data, "artista", cache, totalDespesasInfraestrutura, List.of(lote), true, precoNormal);
+
+            assertEquals((precoNormal*0.5)*0.9, show2.getPrecoTicketPorLote(precoNormal, lote), 0.01);
+            assertEquals(cache + (totalDespesasInfraestrutura * 1.15), show2.getDespesasTotais(), 0.01);
+            assertEquals(-61450.0, show2.getReceitaLiquida(precoNormal), 0.01);
+            assertEquals("PREJUÍZO", show.getStatusFinanceiro(precoNormal));
+        }catch (Exception e) {
+            fail("O teste falhou devido a uma exceção: " + e.getMessage());
+        }
+    }
+
+    @Test
+    public void testTabelaDecisaoCenario6() {
+        try {
+            double precoNormal = 100;
+            Ticket ticket = new Ticket(TicketType.NORMAL, precoNormal);
+            ticket.setSold(true);
+            Lote lote = new Lote(10);
+            lote.addTicket(ticket);
+
+            Show show2 = ticketSystemService.createShow(data, "artista", cache, totalDespesasInfraestrutura, List.of(lote), false, precoNormal);
+
+            assertEquals((precoNormal)*0.9, show2.getPrecoTicketPorLote(precoNormal, lote), 0.01);
+            assertEquals(cache + totalDespesasInfraestrutura, show2.getDespesasTotais(), 0.01);
+            assertEquals(-59910.0, show2.getReceitaLiquida(precoNormal), 0.01);
+            assertEquals("PREJUÍZO", show.getStatusFinanceiro(precoNormal));
+        }catch (Exception e) {
+            fail("O teste falhou devido a uma exceção: " + e.getMessage());
+        }
+    }
+
+    @Test
+    public void testTabelaDecisaoCenario7() {
+        try {
+            double precoNormal = 100;
+            Ticket ticket = new Ticket(TicketType.NORMAL, precoNormal);
+            ticket.setSold(true);
+            Lote lote = new Lote(0);
+            lote.addTicket(ticket);
+
+            Show show2 = ticketSystemService.createShow(data, "artista", cache, totalDespesasInfraestrutura, List.of(lote), true, precoNormal);
+
+            assertEquals(precoNormal, show2.getPrecoTicketPorLote(precoNormal, lote), 0.01);
+            assertEquals(cache + (totalDespesasInfraestrutura * 1.15), show2.getDespesasTotais(), 0.01);
+            assertEquals(-61400.0, show2.getReceitaLiquida(precoNormal), 0.01);
+            assertEquals("PREJUÍZO", show.getStatusFinanceiro(precoNormal));
+        }catch (Exception e) {
+            fail("O teste falhou devido a uma exceção: " + e.getMessage());
+        }
     }
 }
