@@ -49,8 +49,8 @@ public class BillSystemServiceTests {
             double totalValue = 234.87;
             Date date = dateFormatedDate.parse(dateString);
             Invoice newInvoice = new Invoice(1,totalValue, date, clientName);
-            assertEquals("Valber Azevedo", newInvoice.name);
-            assertEquals(date, newInvoice.date);
+            assertEquals("Valber Azevedo", newInvoice.getName());
+            assertEquals(date, newInvoice.getDate());
 
         } catch (ParseException e) {
             e.printStackTrace();
@@ -65,7 +65,7 @@ public class BillSystemServiceTests {
             double totalValue = 234.87;
             Date date = dateFormatedDate.parse(dateString);
             Invoice newInvoice = new Invoice(1,totalValue, date, clientName);
-            assertEquals("PENDENTE", newInvoice.status);
+            assertEquals("PENDENTE", newInvoice.getStatus());
 
         } catch (ParseException e) {
             e.printStackTrace();
@@ -265,7 +265,7 @@ public class BillSystemServiceTests {
             billsPaymentsWay.put(bill2.billCode, "TRANSACAO_BANCARIA");
             billsPaymentsWay.put(bill3.billCode, "TRANSACAO_BANCARIA");
             Invoice processedInvoice = billProcessorService.processBills(invoice, billList, billsPaymentsWay,datePayment);
-            assertEquals("PENDENTE", processedInvoice.status);
+            assertEquals("PENDENTE", processedInvoice.getStatus());
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -289,7 +289,7 @@ public class BillSystemServiceTests {
             billsPaymentsWay.put(bill2.billCode, "TRANSACAO_BANCARIA");
             billsPaymentsWay.put(bill3.billCode, "TRANSACAO_BANCARIA");
             Invoice processedInvoice = billProcessorService.processBills(invoice, billList, billsPaymentsWay,datePayment);
-            assertEquals("PENDENTE", processedInvoice.status);
+            assertEquals("PENDENTE", processedInvoice.getStatus());
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -313,7 +313,7 @@ public class BillSystemServiceTests {
             billsPaymentsWay.put(bill2.billCode, "TRANSACAO_BANCARIA");
             billsPaymentsWay.put(bill3.billCode, "TRANSACAO_BANCARIA");
             Invoice processedInvoice = billProcessorService.processBills(invoice, billList, billsPaymentsWay,dateInvoice);
-            assertEquals("PAGA", processedInvoice.status);
+            assertEquals("PAGA", processedInvoice.getStatus());
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -337,7 +337,7 @@ public class BillSystemServiceTests {
             billsPaymentsWay.put(bill2.billCode, "TRANSACAO_BANCARIA");
 
             Invoice processedInvoice = billProcessorService.processBills(invoice, billList, billsPaymentsWay, dateInvoice);
-            assertEquals("PAGA", processedInvoice.status);
+            assertEquals("PAGA", processedInvoice.getStatus());
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -361,11 +361,9 @@ public class BillSystemServiceTests {
             billsPaymentsWay.put(bill2.billCode, "TRANSACAO_BANCARIA");
 
             Invoice processedInvoice = billProcessorService.processBills(invoice, billList, billsPaymentsWay, dateInvoice);
-            assertEquals("PENDENTE", processedInvoice.status);
+            assertEquals("PENDENTE", processedInvoice.getStatus());
         } catch (ParseException e) {
             e.printStackTrace();
         }
     }
-
-
 }

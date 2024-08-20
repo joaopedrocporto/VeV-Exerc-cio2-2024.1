@@ -33,7 +33,7 @@ public class BillSystemService {
     }
 
     public double payBill(Invoice invoice, Bill bill, Date paymentDate, String payment) {
-        if (bill.date.after(invoice.date)) {
+        if (bill.date.after(invoice.getDate())) {
             return 0;
         }
         Payment billPayment;
@@ -54,7 +54,7 @@ public class BillSystemService {
     }
 
     private Payment payCard(Invoice invoice, Bill bill, Date paymentDate, double value) {
-        long diffInMillies = Math.abs(bill.date.getTime() - invoice.date.getTime());
+        long diffInMillies = Math.abs(bill.date.getTime() - invoice.getDate().getTime());
         long diffInDays = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
         Payment newPayment;
         if (diffInDays < 15) {
@@ -83,7 +83,7 @@ public class BillSystemService {
         for (int i = 0; i < billListId.size(); i++) {
             accumulatedValue += this.payBill(invoice, this.bills.get(billListId.get(i)), paymentDate, billsPaymentsWay.get(billListId.get(i)));
         }
-        if (invoice.value <= accumulatedValue) {
+        if (invoice.getValue() <= accumulatedValue) {
             invoice.confirmPayment();
         }
         return invoice;

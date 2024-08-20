@@ -4,10 +4,10 @@ import java.util.Date;
 
 public class Invoice {
     private Integer idInvoice;
-    public String status;
-    public Double value;
-    public String name;
-    public Date date;
+    private String status;
+    private Double value;
+    private String name;
+    private Date date;
 
 
     public Invoice(Integer code, Double totalValue, Date date, String clientName) {
@@ -25,4 +25,25 @@ public class Invoice {
     public void confirmPayment(){
         this.status = "PAGA";
     }
+
+    public Integer getIdInvoice() {
+        return idInvoice;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public Double getValue() {
+        return value;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
 }
