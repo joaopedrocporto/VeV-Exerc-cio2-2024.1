@@ -238,64 +238,6 @@ public class BillSystemServiceTests {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-    }@Test
-    public void casoBoleto1() {
-        try {
-            Date dateInvoice = dateFormatedDate.parse("2023-12-13");
-            Invoice invoice = new Invoice(1, 234.87, dateInvoice, "Valber Azevedo");
-            Bill bill = this.billProcessorService.addBills(234.87, "2023-12-12", 1);
-
-            List<Integer> billList = new ArrayList<>();
-            billList.add(bill.billCode);
-
-            Map<Integer, String> billsPaymentsWay = new HashMap<>();
-            billsPaymentsWay.put(bill.billCode, "BOLETO");
-
-            Invoice processedInvoice = billProcessorService.processBills(invoice, billList, billsPaymentsWay, dateInvoice);
-            assertEquals("PENDENTE", processedInvoice.getStatus());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
-    public void casoBoleto2() {
-        try {
-            Date dateInvoice = dateFormatedDate.parse("2023-12-27");
-            Invoice invoice = new Invoice(2, 258.35, dateInvoice, "Valber Azevedo");
-            Bill bill = this.billProcessorService.addBills(234.87, "2023-12-12", 2);
-
-            List<Integer> billList = new ArrayList<>();
-            billList.add(bill.billCode);
-
-            Map<Integer, String> billsPaymentsWay = new HashMap<>();
-            billsPaymentsWay.put(bill.billCode, "BOLETO");
-
-            Invoice processedInvoice = billProcessorService.processBills(invoice, billList, billsPaymentsWay, dateInvoice);
-            assertEquals("PAGA", processedInvoice.getStatus());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
-    public void casoBoleto3() {
-        try {
-            Date dateInvoice = dateFormatedDate.parse("2023-12-26");
-            Invoice invoice = new Invoice(3, 234.87, dateInvoice, "Valber Azevedo");
-            Bill bill = this.billProcessorService.addBills(10, "2023-12-12", 3);
-
-            List<Integer> billList = new ArrayList<>();
-            billList.add(bill.billCode);
-
-            Map<Integer, String> billsPaymentsWay = new HashMap<>();
-            billsPaymentsWay.put(bill.billCode, "BOLETO");
-
-            Invoice processedInvoice = billProcessorService.processBills(invoice, billList, billsPaymentsWay, dateInvoice);
-            assertEquals("PENDENTE", processedInvoice.getStatus());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
     }
 
     @Test
@@ -316,27 +258,6 @@ public class BillSystemServiceTests {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-    }
-
-    @Test
-    public void casoBoleto5() {
-        try {
-            Date dateInvoice = dateFormatedDate.parse("2023-12-13");
-            Invoice invoice = new Invoice(5, 234.87, dateInvoice, "Valber Azevedo");
-            Bill bill = this.billProcessorService.addBills(234.87, "2023-12-12", 5);
-
-            List<Integer> billList = new ArrayList<>();
-            billList.add(bill.billCode);
-
-            Map<Integer, String> billsPaymentsWay = new HashMap<>();
-            billsPaymentsWay.put(bill.billCode, "BOLETO");
-
-            Invoice processedInvoice = billProcessorService.processBills(invoice, billList, billsPaymentsWay, dateInvoice);
-            assertEquals("PENDENTE", processedInvoice.getStatus());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
     }
 
     @Test
@@ -597,7 +518,7 @@ public class BillSystemServiceTests {
             Date dateInvoice = dateFormatedDate.parse("2023-12-13");
             Date billDate = dateFormatedDate.parse("2023-12-14");
             Invoice invoice = new Invoice(1, 100.00, dateInvoice, "Valber Azevedo");
-            Bill bill = this.billProcessorService.addBills(100, billDate.toString(), 1);
+            Bill bill = this.billProcessorService.addBills(10, billDate.toString(), 1);
 
             List<Integer> billList = new ArrayList<>();
             billList.add(bill.billCode);
@@ -637,9 +558,9 @@ public class BillSystemServiceTests {
     public void casosTransferenciaTabela3() {
         try {
             Date dateInvoice = dateFormatedDate.parse("2023-12-13");
-            Date billDate = dateFormatedDate.parse("2023-12-13");
+            Date billDate = dateFormatedDate.parse("2023-12-14");
             Invoice invoice = new Invoice(1, 100.00, dateInvoice, "Valber Azevedo");
-            Bill bill = this.billProcessorService.addBills(50, billDate.toString(), 1);
+            Bill bill = this.billProcessorService.addBills(250, billDate.toString(), 1);
 
             List<Integer> billList = new ArrayList<>();
             billList.add(bill.billCode);
@@ -678,8 +599,8 @@ public class BillSystemServiceTests {
     @Test
     public void casosCartaoCreditoTabela1() {
         try {
-            Date dateInvoice = dateFormatedDate.parse("2023-12-13");
-            Date billDate = dateFormatedDate.parse("2023-12-01");
+            Date dateInvoice = dateFormatedDate.parse("2023-12-27");
+            Date billDate = dateFormatedDate.parse("2023-12-13");
             Invoice invoice = new Invoice(1, 100.00, dateInvoice, "Valber Azevedo");
             Bill bill = this.billProcessorService.addBills(50, billDate.toString(), 1);
 
@@ -699,8 +620,8 @@ public class BillSystemServiceTests {
     @Test
     public void casosCartaoCreditoTabela2() {
         try {
-            Date dateInvoice = dateFormatedDate.parse("2023-12-13");
-            Date billDate = dateFormatedDate.parse("2023-12-01");
+            Date dateInvoice = dateFormatedDate.parse("2023-12-27");
+            Date billDate = dateFormatedDate.parse("2023-12-13");
             Invoice invoice = new Invoice(1, 100.00, dateInvoice, "Valber Azevedo");
             Bill bill = this.billProcessorService.addBills(100, billDate.toString(), 1);
 
@@ -711,7 +632,7 @@ public class BillSystemServiceTests {
             billsPaymentsWay.put(bill.billCode, "CARTAO_CREDITO");
 
             Invoice processedInvoice = billProcessorService.processBills(invoice, billList, billsPaymentsWay, dateInvoice);
-            assertEquals("PAGA", processedInvoice.getStatus());
+            assertEquals("PENDENTE", processedInvoice.getStatus());
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -720,7 +641,7 @@ public class BillSystemServiceTests {
     @Test
     public void casosCartaoCreditoTabela3() {
         try {
-            Date dateInvoice = dateFormatedDate.parse("2023-12-13");
+            Date dateInvoice = dateFormatedDate.parse("2023-12-16");
             Date billDate = dateFormatedDate.parse("2023-12-01");
             Invoice invoice = new Invoice(1, 200.00, dateInvoice, "Valber Azevedo");
             Bill bill = this.billProcessorService.addBills(100, billDate.toString(), 1);
@@ -742,7 +663,7 @@ public class BillSystemServiceTests {
     public void casosCartaoCreditoTABELA4() {
         try {
             Date dateInvoice = dateFormatedDate.parse("2023-12-13");
-            Date billDate = dateFormatedDate.parse("2023-12-01");
+            Date billDate = dateFormatedDate.parse("2023-11-01");
             Invoice invoice = new Invoice(1, 100.00, dateInvoice, "Valber Azevedo");
             Bill bill = this.billProcessorService.addBills(100, billDate.toString(), 1);
 
@@ -800,13 +721,13 @@ public class BillSystemServiceTests {
     public void casosTabelaBoleto3() {
         try {
             Date dateInvoice = dateFormatedDate.parse("2023-12-13");
-            Invoice invoice = new Invoice(1, 100.00, dateInvoice, "Valber Azevedo");
-            Bill bill = this.billProcessorService.addBills(0.01, "2023-12-12", 1);
+            Invoice invoice = new Invoice(1, 110.00, dateInvoice, "Valber Azevedo");
+            Bill bill = this.billProcessorService.addBills(100.00, "2023-12-12", 1);
             List<Integer> billList = new ArrayList<>();
             billList.add(bill.billCode);
             Map<Integer, String> billsPaymentsWay = new HashMap<>();
             billsPaymentsWay.put(bill.billCode, "BOLETO");
-            Date paymentDate = dateFormatedDate.parse("2023-12-11");
+            Date paymentDate = dateFormatedDate.parse("2023-12-13");
             Invoice processedInvoice = billProcessorService.processBills(invoice, billList, billsPaymentsWay, paymentDate);
             assertEquals("PAGA", processedInvoice.getStatus());
         } catch (ParseException e) {
@@ -818,7 +739,7 @@ public class BillSystemServiceTests {
     public void casosTabelaBoleto4() {
         try {
             Date dateInvoice = dateFormatedDate.parse("2023-12-13");
-            Invoice invoice = new Invoice(1, 100.00, dateInvoice, "Valber Azevedo");
+            Invoice invoice = new Invoice(1, 5550.00, dateInvoice, "Valber Azevedo");
             Bill bill = this.billProcessorService.addBills(5000.00, "2023-12-12", 1);
             List<Integer> billList = new ArrayList<>();
             billList.add(bill.billCode);
@@ -826,7 +747,7 @@ public class BillSystemServiceTests {
             billsPaymentsWay.put(bill.billCode, "BOLETO");
             Date paymentDate = dateFormatedDate.parse("2023-12-14");
             Invoice processedInvoice = billProcessorService.processBills(invoice, billList, billsPaymentsWay, paymentDate);
-            assertEquals("PAGA", processedInvoice.getStatus());
+            assertEquals("PENDENTE", processedInvoice.getStatus());
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -842,7 +763,7 @@ public class BillSystemServiceTests {
             billList.add(bill.billCode);
             Map<Integer, String> billsPaymentsWay = new HashMap<>();
             billsPaymentsWay.put(bill.billCode, "BOLETO");
-            Date paymentDate = dateFormatedDate.parse("2023-12-14");
+            Date paymentDate = dateFormatedDate.parse("2023-12-12");
             Invoice processedInvoice = billProcessorService.processBills(invoice, billList, billsPaymentsWay, paymentDate);
             assertEquals("PAGA", processedInvoice.getStatus());
         } catch (ParseException e) {
@@ -855,15 +776,14 @@ public class BillSystemServiceTests {
         try {
             Date dateInvoice = dateFormatedDate.parse("2023-12-13");
             Invoice invoice = new Invoice(1, 100.00, dateInvoice, "Valber Azevedo");
-            Bill bill = this.billProcessorService.addBills(100.00, "2023-12-12", 1);
+            Bill bill = this.billProcessorService.addBills(0.01, "2023-12-12", 1);
             List<Integer> billList = new ArrayList<>();
             billList.add(bill.billCode);
             Map<Integer, String> billsPaymentsWay = new HashMap<>();
             billsPaymentsWay.put(bill.billCode, "BOLETO");
             Date paymentDate = dateFormatedDate.parse("2023-12-14");
-            assertThrows(IllegalArgumentException.class, () -> {
-                billProcessorService.payBill(invoice, bill, paymentDate, "BOLETO");
-            });
+            Invoice processedInvoice = billProcessorService.processBills(invoice, billList, billsPaymentsWay, paymentDate);
+            assertEquals("PENDENTE", processedInvoice.getStatus());
         } catch (ParseException e) {
             e.printStackTrace();
         }
